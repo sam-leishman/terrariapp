@@ -12,6 +12,7 @@ export type Progress = {
     defeatedBosses: Record<string, boolean>;
     npcs: Record<string, boolean>;
     upgrades: Record<string, number>;
+    pylons: Record<string, boolean>;
 };
 
 // Pre-hardmode bosses

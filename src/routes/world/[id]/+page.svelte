@@ -21,6 +21,17 @@
         return Math.round((currentTotal / totalMax) * 100);
     }
 
+    function calculatePylonProgress(world): number {
+        if (!world?.progress.pylons) return 0;
+        
+        // Calculate total max based on world difficulty
+        const totalMax = 8; // Total of pylons
+        
+        const currentTotal = Object.values(world.progress.pylons).reduce((sum, value) => sum + value, 0);
+        
+        return Math.round((currentTotal / totalMax) * 100);
+    }
+
     $: world = $worlds.find((w) => w.id === $page.params.id);
     $: if (browser && !world) {
         goto('/');
@@ -148,41 +159,84 @@
                 </div>
             </div>
 
-            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <a
                     href="/world/{world.id}/bosses"
-                    class="flex items-center justify-between rounded bg-slate-800 p-4 hover:bg-slate-700"
+                    class="flex flex-col rounded-lg bg-slate-800 p-6 hover:bg-slate-700"
                 >
-                    <div>
-                        <h2 class="text-xl font-semibold">Boss Progress</h2>
-                        <p class="text-slate-400">Track defeated bosses</p>
-                    </div>
-                    <div class="w-32">
-                        <ProgressBar percentage={calculateProgress(world)} />
+                    <h2 class="mb-2 text-xl font-semibold">Bosses</h2>
+                    <p class="mb-4 text-sm text-slate-400">Track defeated bosses and unlock progression.</p>
+                    <div class="mt-auto">
+                        <div class="flex items-center justify-between text-sm">
+                            <span>Progress</span>
+                            <span>{calculateProgress(world)}%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-700">
+                            <div
+                                class="h-full rounded-full bg-blue-500"
+                                style="width: {calculateProgress(world)}%"
+                            />
+                        </div>
                     </div>
                 </a>
+
                 <a
                     href="/world/{world.id}/npcs"
-                    class="flex items-center justify-between rounded bg-slate-800 p-4 hover:bg-slate-700"
+                    class="flex flex-col rounded-lg bg-slate-800 p-6 hover:bg-slate-700"
                 >
-                    <div>
-                        <h2 class="text-xl font-semibold">NPCs</h2>
-                        <p class="text-slate-400">Track available NPCs</p>
-                    </div>
-                    <div class="w-32">
-                        <ProgressBar percentage={calculateNPCProgress(world)} />
+                    <h2 class="mb-2 text-xl font-semibold">NPCs</h2>
+                    <p class="mb-4 text-sm text-slate-400">Track available NPCs and their locations.</p>
+                    <div class="mt-auto">
+                        <div class="flex items-center justify-between text-sm">
+                            <span>Progress</span>
+                            <span>{calculateNPCProgress(world)}%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-700">
+                            <div
+                                class="h-full rounded-full bg-blue-500"
+                                style="width: {calculateNPCProgress(world)}%"
+                            />
+                        </div>
                     </div>
                 </a>
+
                 <a
                     href="/world/{world.id}/upgrades"
-                    class="flex items-center justify-between rounded bg-slate-800 p-4 hover:bg-slate-700"
+                    class="flex flex-col rounded-lg bg-slate-800 p-6 hover:bg-slate-700"
                 >
-                    <div>
-                        <h2 class="text-xl font-semibold">Upgrades</h2>
-                        <p class="text-slate-400">Track permanent upgrades</p>
+                    <h2 class="mb-2 text-xl font-semibold">Upgrades</h2>
+                    <p class="mb-4 text-sm text-slate-400">Track permanent character upgrades.</p>
+                    <div class="mt-auto">
+                        <div class="flex items-center justify-between text-sm">
+                            <span>Progress</span>
+                            <span>{calculateUpgradeProgress(world)}%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-700">
+                            <div
+                                class="h-full rounded-full bg-blue-500"
+                                style="width: {calculateUpgradeProgress(world)}%"
+                            />
+                        </div>
                     </div>
-                    <div class="w-32">
-                        <ProgressBar percentage={calculateUpgradeProgress(world)} />
+                </a>
+
+                <a
+                    href="/world/{world.id}/pylons"
+                    class="flex flex-col rounded-lg bg-slate-800 p-6 hover:bg-slate-700"
+                >
+                    <h2 class="mb-2 text-xl font-semibold">Pylons</h2>
+                    <p class="mb-4 text-sm text-slate-400">Track pylon network and NPC requirements.</p>
+                    <div class="mt-auto">
+                        <div class="flex items-center justify-between text-sm">
+                            <span>Progress</span>
+                            <span>{calculatePylonProgress(world)}%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-700">
+                            <div
+                                class="h-full rounded-full bg-blue-500"
+                                style="width: {calculatePylonProgress(world)}%"
+                            />
+                        </div>
                     </div>
                 </a>
             </div>
