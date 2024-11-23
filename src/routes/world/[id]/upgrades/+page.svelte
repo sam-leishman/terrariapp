@@ -12,7 +12,7 @@
     const expertUpgrades = {
         demonHeart: {
             name: 'Demon Heart',
-            description: 'Permanently adds an extra accessory slot (Expert/Master only)',
+            description: 'Permanently increases the number of accessory slots',
             max: 1
         }
     };
@@ -21,43 +21,43 @@
         // Health & Mana
         lifeCrystals: {
             name: 'Life Crystals',
-            description: 'Permanently increases max life by 20',
+            description: 'Permanently increases maximum life by 20',
             max: 15
         },
         lifeFruit: {
             name: 'Life Fruit',
-            description: 'Permanently increases max life by 5 (Hardmode only)',
+            description: 'Permanently increases maximum life by 5',
             max: 20
         },
         manaCrystals: {
             name: 'Mana Crystals',
-            description: 'Permanently increases max mana by 20',
+            description: 'Permanently increases maximum mana by 20',
             max: 9
         },
         // Permanent Consumables
         combatBook1: {
             name: 'Advanced Combat Techniques',
-            description: 'Permanently increases damage by 5%',
+            description: 'Increases the defense and strength of all villagers',
             max: 1
         },
         artisanLoaf: {
             name: 'Artisan Loaf',
-            description: 'Permanently increases mining speed by 20%',
+            description: 'Consume to permanently increase crafting station range',
             max: 1
         },
         torchGod: {
             name: "Torch God's Favor",
-            description: 'Permanently enables automatic torch placement',
+            description: 'Normal torches change according to your biome',
             max: 1
         },
         vitalCrystal: {
             name: 'Vital Crystal',
-            description: 'Permanently increases life regeneration',
+            description: 'Permanently boosts life regeneration',
             max: 1
         },
         aegisFruit: {
             name: 'Aegis Fruit',
-            description: 'Permanently increases defense by 2',
+            description: 'Permanently increases defense',
             max: 1
         },
         arcaneCrystal: {
@@ -67,32 +67,32 @@
         },
         ambrosia: {
             name: 'Ambrosia',
-            description: 'Permanently increases life regeneration and defense',
+            description: 'Permanently increases mining and building speed',
             max: 1
         },
         gummyWorm: {
             name: 'Gummy Worm',
-            description: 'Permanently increases fishing power by 5%',
+            description: 'Permanently increases fishing skill',
             max: 1
         },
         galaxyPearl: {
             name: 'Galaxy Pearl',
-            description: 'Permanently increases maximum minion slots by 1',
+            description: 'Permanently increases luck',
             max: 1
         },
         combatBook2: {
             name: 'Advanced Combat Techniques: Volume Two',
-            description: 'Permanently increases critical strike chance by 2%',
+            description: 'Increases the defense and strength of all villagers',
             max: 1
         },
         peddlersSatchel: {
             name: "Peddler's Satchel",
-            description: 'Permanently increases item sale value by 10%',
+            description: 'Permanently increases items sold by the Traveling Merchant',
             max: 1
         },
         minecartKit: {
             name: 'Minecart Upgrade Kit',
-            description: 'Permanently increases minecart speed and abilities',
+            description: 'Permanently grants boosted speed and a defensive probe for minecarts',
             max: 1
         }
     };
