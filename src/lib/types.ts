@@ -8,11 +8,10 @@ export interface World {
     progress: Progress;
 }
 
-export interface Progress {
-    defeatedBosses: {
-        [key: string]: boolean;
-    };
-}
+export type Progress = {
+    defeatedBosses: Record<string, boolean>;
+    npcs: Record<string, boolean>;
+};
 
 // Pre-hardmode bosses
 export const BOSSES = {

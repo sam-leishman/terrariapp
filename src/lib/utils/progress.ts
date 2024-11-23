@@ -63,3 +63,10 @@ export function calculateProgress(world: World): number {
     
     return Math.round((totalDefeated / totalBosses) * 100);
 }
+
+export function calculateNPCProgress(world: World): number {
+    if (!world.progress.npcs) return 0;
+    const totalNPCs = 25; // Total number of NPCs
+    const availableNPCs = Object.values(world.progress.npcs).filter(Boolean).length;
+    return Math.round((availableNPCs / totalNPCs) * 100);
+}

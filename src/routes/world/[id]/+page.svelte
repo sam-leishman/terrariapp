@@ -2,11 +2,11 @@
     import { page } from '$app/stores';
     import { worlds } from '$lib/stores/worlds';
     import type { World } from '$lib/types';
-    import ProgressBar from '$lib/components/ProgressBar.svelte';
-    import { calculateProgress } from '$lib/utils/progress';
     import { browser } from '$app/environment';
     import { goto } from '$app/navigation';
+    import ProgressBar from '$lib/components/ProgressBar.svelte';
     import CreateWorldDialog from '$lib/components/CreateWorldDialog.svelte';
+    import { calculateProgress, calculateNPCProgress } from '$lib/utils/progress';
 
     $: world = $worlds.find((w) => w.id === $page.params.id);
     $: if (browser && !world) {
@@ -83,117 +83,92 @@
 {#if world}
     <div class="mx-auto max-w-3xl space-y-8 p-4">
         <div>
-            <a
-                href="/"
-                class="mb-4 inline-flex items-center text-sm text-slate-400 hover:text-slate-300"
-            >
-                <svg
-                    class="mr-2 h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18"
-                    />
-                </svg>
-                Back to Worlds
-            </a>
-            <div class="mb-2 flex items-center justify-between">
-                <h1 class="text-3xl font-bold">{world.name}</h1>
-                <button
-                    class="rounded bg-slate-700 px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-600"
-                    on:click={() => isEditDialogOpen = true}
-                >
-                    Edit World
-                </button>
-            </div>
-            <div class="mb-6 flex items-center gap-4 text-sm text-slate-400">
-                <span class={difficultyColors[world.difficulty]}>{world.difficulty}</span>
-                <span>{world.worldSize}</span>
-                <span class={evilColors[world.evil]}>{world.evil}</span>
-            </div>
-            <div class="mb-8">
-                <ProgressBar percentage={calculateProgress(world)} />
-            </div>
-        </div>
-
-        <div class="space-y-8">
-            <div class="rounded-lg bg-slate-800 p-6">
-                <h2 class="mb-4 text-xl font-semibold">Pre-Hardmode Bosses</h2>
-                <div class="grid gap-4 sm:grid-cols-2">
-                    {#each Object.entries(preHardmodeBosses) as [id, name]}
-                        <button
-                            class="flex items-center gap-3 rounded bg-slate-700 p-3 text-left hover:bg-slate-600"
-                            class:opacity-50={!world.progress.defeatedBosses[id]}
-                            on:click={() => toggleBoss(id)}
+            <div class="mb-4 flex items-center justify-between">
+                <div>
+                    <a
+                        href="/"
+                        class="mb-2 inline-flex items-center text-sm text-slate-400 hover:text-slate-300"
+                    >
+                        <svg
+                            class="mr-2 h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
                         >
-                            <div
-                                class="flex h-5 w-5 items-center justify-center rounded border border-slate-500"
-                            >
-                                {#if world.progress.defeatedBosses[id]}
-                                    <svg
-                                        class="h-3 w-3 text-green-400"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                {/if}
-                            </div>
-                            {name}
-                        </button>
-                    {/each}
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                            />
+                        </svg>
+                        Back to Worlds
+                    </a>
+                    <h1 class="text-3xl font-bold">{world.name}</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="rounded bg-slate-700 px-4 py-2 hover:bg-slate-600"
+                        on:click={() => (isEditDialogOpen = true)}
+                    >
+                        Edit World
+                    </button>
                 </div>
             </div>
 
             <div class="rounded-lg bg-slate-800 p-6">
-                <h2 class="mb-4 text-xl font-semibold">Hardmode Bosses</h2>
+                <h2 class="mb-4 text-xl font-semibold">World Details</h2>
                 <div class="grid gap-4 sm:grid-cols-2">
-                    {#each Object.entries(hardmodeBosses) as [id, name]}
-                        <button
-                            class="flex items-center gap-3 rounded bg-slate-700 p-3 text-left hover:bg-slate-600"
-                            class:opacity-50={!world.progress.defeatedBosses[id]}
-                            on:click={() => toggleBoss(id)}
-                        >
-                            <div
-                                class="flex h-5 w-5 items-center justify-center rounded border border-slate-500"
-                            >
-                                {#if world.progress.defeatedBosses[id]}
-                                    <svg
-                                        class="h-3 w-3 text-green-400"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                {/if}
-                            </div>
-                            {name}
-                        </button>
-                    {/each}
+                    <div>
+                        <p class="text-sm text-slate-400">Difficulty</p>
+                        <p class="text-lg">{world.difficulty}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-400">World Size</p>
+                        <p class="text-lg">{world.worldSize}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-400">Evil Type</p>
+                        <p class="text-lg">{world.evil}</p>
+                    </div>
                 </div>
+            </div>
+
+            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+                <a
+                    href="/world/{world.id}/bosses"
+                    class="flex items-center justify-between rounded bg-slate-800 p-4 hover:bg-slate-700"
+                >
+                    <div>
+                        <h2 class="text-xl font-semibold">Boss Progress</h2>
+                        <p class="text-slate-400">Track defeated bosses</p>
+                    </div>
+                    <div class="w-32">
+                        <ProgressBar percentage={calculateProgress(world)} />
+                    </div>
+                </a>
+                <a
+                    href="/world/{world.id}/npcs"
+                    class="flex items-center justify-between rounded bg-slate-800 p-4 hover:bg-slate-700"
+                >
+                    <div>
+                        <h2 class="text-xl font-semibold">NPCs</h2>
+                        <p class="text-slate-400">Track available NPCs</p>
+                    </div>
+                    <div class="w-32">
+                        <ProgressBar percentage={calculateNPCProgress(world)} />
+                    </div>
+                </a>
             </div>
         </div>
     </div>
-{/if}
 
-<CreateWorldDialog
-    isOpen={isEditDialogOpen}
-    onClose={() => isEditDialogOpen = false}
-    editWorld={world}
-/>
+    <CreateWorldDialog
+        bind:isOpen={isEditDialogOpen}
+        editWorld={world}
+        on:worldCreated={() => {
+            isEditDialogOpen = false;
+        }}
+    />
+{/if}
