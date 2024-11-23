@@ -8,6 +8,19 @@
     import CreateWorldDialog from '$lib/components/CreateWorldDialog.svelte';
     import { calculateProgress, calculateNPCProgress } from '$lib/utils/progress';
 
+    function calculateUpgradeProgress(world): number {
+        if (!world?.progress.upgrades) return 0;
+        
+        // Calculate total max based on world difficulty
+        const baseMax = 56; // Total of base upgrades (15 + 20 + 9 + 12 consumables)
+        const expertMax = 1;  // Demon Heart
+        const totalMax = world.difficulty === 'Classic' ? baseMax : baseMax + expertMax;
+        
+        const currentTotal = Object.values(world.progress.upgrades).reduce((sum, value) => sum + value, 0);
+        
+        return Math.round((currentTotal / totalMax) * 100);
+    }
+
     $: world = $worlds.find((w) => w.id === $page.params.id);
     $: if (browser && !world) {
         goto('/');
@@ -158,6 +171,18 @@
                     </div>
                     <div class="w-32">
                         <ProgressBar percentage={calculateNPCProgress(world)} />
+                    </div>
+                </a>
+                <a
+                    href="/world/{world.id}/upgrades"
+                    class="flex items-center justify-between rounded bg-slate-800 p-4 hover:bg-slate-700"
+                >
+                    <div>
+                        <h2 class="text-xl font-semibold">Upgrades</h2>
+                        <p class="text-slate-400">Track permanent upgrades</p>
+                    </div>
+                    <div class="w-32">
+                        <ProgressBar percentage={calculateUpgradeProgress(world)} />
                     </div>
                 </a>
             </div>
