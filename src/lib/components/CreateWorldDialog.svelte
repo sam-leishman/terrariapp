@@ -83,6 +83,7 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
         on:keydown={handleKeydown}
         on:click|self={handleClose}
+        role="presentation"
     >
         <div
             class="w-full max-w-lg rounded-lg bg-slate-800 p-6 shadow-xl"
@@ -107,8 +108,7 @@
                             id="worldName"
                             bind:value={newWorldName}
                             class="w-full rounded bg-slate-700 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            placeholder="Enter world name"
-                        />
+                            required />
                     </div>
 
                     <div>

@@ -11,8 +11,7 @@
 <div class="relative w-full overflow-hidden rounded bg-slate-700">
     <div
         class="{sizeClasses[size]} bg-blue-600 transition-all duration-300"
-        style="width: {percentage}%"
-    />
+        style="width: {percentage}%"></div>
 </div>
 
 <div class="mt-1 text-right text-xs text-slate-400">

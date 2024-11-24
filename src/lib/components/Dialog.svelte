@@ -15,6 +15,7 @@
     <div
         class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
         on:keydown={handleKeydown}
+        role="presentation"
     >
         <div
             class="w-full max-w-md rounded-lg bg-slate-800 p-6 shadow-xl"
@@ -23,7 +24,7 @@
         >
             <h2 class="mb-4 text-xl font-semibold">{title}</h2>
             <div class="mb-6">
-                <slot />
+                <slot></slot>
             </div>
             <div class="flex justify-end gap-4">
                 <button

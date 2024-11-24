@@ -92,7 +92,7 @@
                     <h1 class="text-3xl font-bold">Boss Progress</h1>
                 </div>
                 <div class="w-48">
-                    <ProgressBar percentage={calculateProgress(world)} />
+                    <ProgressBar percentage={calculateProgress(world)}></ProgressBar>
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ export type Progress = {
     npcs: Record<string, boolean>;
     upgrades: Record<string, number>;
     pylons: Record<string, boolean>;
+    events: Record<string, boolean>;
 };
 
 // Pre-hardmode bosses

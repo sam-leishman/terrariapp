@@ -72,7 +72,7 @@
 							>{world.evil || 'Corruption'}</span
 						>
 					</div>
-					<ProgressBar percentage={calculateProgress(world)} size="sm" />
+					<ProgressBar percentage={calculateProgress(world)} size="sm"></ProgressBar>
 				</div>
 				<a
 					href="/world/{world.id}"
@@ -108,4 +108,4 @@
 	</p>
 </Dialog>
 
-<CreateWorldDialog isOpen={isCreateDialogOpen} onClose={() => (isCreateDialogOpen = false)} />
+<CreateWorldDialog isOpen={isCreateDialogOpen} onClose={() => (isCreateDialogOpen = false)}></CreateWorldDialog>
